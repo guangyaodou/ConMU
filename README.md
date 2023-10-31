@@ -1,4 +1,5 @@
 # Controallble Machine Unlearning
+Code instruction for Paper: Breaking the Trilemma of Privacy, Utility, Efficiency via Controllable Machine Unlearning, now available on arxiv: [https://arxiv.org/abs/2310.18574](https://arxiv.org/abs/2310.18574)
 
 ## Introduction
 Here is the Controllable Machine Unlearning (ConMU) repository. We conduct our experiments on CV benchmarks
