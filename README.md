@@ -1,9 +1,16 @@
 # Controallble Machine Unlearning
-Code instruction for Paper: Breaking the Trilemma of Privacy, Utility, Efficiency via Controllable Machine Unlearning, now available on arxiv: [https://arxiv.org/abs/2310.18574](https://arxiv.org/abs/2310.18574)
+Code instruction for Paper: Breaking the Trilemma of Privacy, Utility, Efficiency via Controllable Machine Unlearning (WWW 2024)
+now available on arxiv: [https://arxiv.org/abs/2310.18574](https://arxiv.org/abs/2310.18574)
+Camera ready version coming soon.
 
 ## Introduction
 Here is the Controllable Machine Unlearning (ConMU) repository. We conduct our experiments on CV benchmarks
 for both the random forgetting and class-wise forgetting.
+
+## Environment Download:
+```angular2html
+conda temp create -f conmu.yml
+```
 
 ## Random Forgetting
 
