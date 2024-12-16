@@ -1,26 +1,17 @@
-import copy
 import sys
+import copy
+import time
 
+import torch
 import torch.nn as nn
 import torch.optim
 import torch.utils.data
 
-import utils
+import utils, arg_parser, ConMU, evaluation_metrics
 from data_initialization import data_init
 
 sys.path.append(('../'))
 sys.path.append(('../../'))
-import torch.optim
-import torch.utils.data
-import sys
-import time
-import evaluation_metrics
-
-sys.path.append(('../'))
-sys.path.append(('../../'))
-import torch
-import arg_parser
-import ConMU
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
