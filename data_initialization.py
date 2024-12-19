@@ -1,4 +1,5 @@
 import sys
+import time
 
 import torch
 import torch.nn as nn
@@ -9,8 +10,6 @@ import utils
 
 sys.path.append(('../'))
 sys.path.append(('../../'))
-from utils import *
-import time
 
 
 def data_init(args):
@@ -24,7 +23,7 @@ def data_init(args):
 
     if args.dataset == "cifar10" or args.dataset == "cifar100" or args.dataset == 'svhn':
 
-        model, incompetent_model, train_loader, _, test_loader, marked_loader = setup_model_dataset(args)
+        model, incompetent_model, train_loader, _, test_loader, marked_loader = utils.setup_model_dataset(args)
 
         forget_loader, retain_loader = utils.split_train_to_forget_retain(marked_loader=marked_loader,
                                                                           forget_percentage=args.forget_percentage,

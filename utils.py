@@ -5,6 +5,7 @@ import sys
 import numpy as np
 import torch
 import torch.nn.utils.prune as prune
+from torch.utils.data import Subset
 from torch import nn
 from torchvision import transforms
 
@@ -16,7 +17,6 @@ __all__ = ['setup_model_dataset', 'AverageMeter',
            'save_checkpoint', 'setup_seed', 'accuracy']
 sys.path.append(('../'))
 sys.path.append(('../../'))
-from torch.utils.data import Subset
 
 
 def check_sparsity(model):
@@ -65,9 +65,7 @@ def pruning_model(model, px):
     print('Apply Unstructured L1 Pruning Globally (all conv layers and all linear layers)')
     parameters_to_prune = []
     for name, m in model.named_modules():
-        if isinstance(m, nn.Conv2d):
-            parameters_to_prune.append((m, 'weight'))
-        elif isinstance(m, nn.Linear):
+        if isinstance(m, nn.Conv2d) or isinstance(m, nn.Linear):
             parameters_to_prune.append((m, 'weight'))
 
     parameters_to_prune = tuple(parameters_to_prune)
@@ -147,6 +145,7 @@ def setup_model_dataset(args):
         incompetent_model.normalize = normalization
         print(model)
         return model, incompetent_model, train_full_loader, val_loader, test_loader, marked_loader
+    
     elif args.dataset == 'svhn':
         classes = 10
         normalization = NormalizeByChannelMeanStd(
@@ -166,6 +165,7 @@ def setup_model_dataset(args):
         model.normalize = normalization
         print(model)
         return model, incompetent_model, train_full_loader, val_loader, test_loader, marked_loader
+    
     elif args.dataset == 'cifar100':
         setup_seed(args.train_seed)
         classes = 100
@@ -187,6 +187,7 @@ def setup_model_dataset(args):
         model.normalize = normalization
         print(model)
         return model, incompetent_model, train_full_loader, val_loader, test_loader, marked_loader
+    
     else:
         raise ValueError('Dataset not supprot yet !')
 
@@ -270,6 +271,7 @@ def split_train_to_forget_retain(marked_loader, forget_percentage, batch_size, s
 
         else:
             raise Exception("This class is not in the designated dataset!")
+        
     else:
         split_point = int(len(whole_dataset) * forget_percentage)
         forget_dataset = Subset(whole_dataset, indices=[i for i in range(split_point)])

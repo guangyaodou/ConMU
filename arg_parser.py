@@ -16,6 +16,7 @@ def parse_args():
                         default='./tiny-imagenet-200', help='dir to tiny-imagenet')
     parser.add_argument('--num_workers', type=int, default=1)
     parser.add_argument('--num_classes', type=int, default=2)
+
     ##################################### Architecture ############################################
     parser.add_argument('--arch', type=str,
                         default='resnet18', help='model architecture')
@@ -106,4 +107,5 @@ def parse_args():
                         default=10, help='number of epochs for retrian using only the retained data')
     parser.add_argument('--retrain_lr', default=1e-4, type=float,
                         help='retrain learning rate')
+    
     return parser.parse_args()

@@ -1,4 +1,5 @@
 import sys
+import time
 
 import numpy as np
 import torch
@@ -8,13 +9,12 @@ from torch import linalg as LA
 from torch.utils.data import ConcatDataset, DataLoader
 
 from dataset import CustomImageDataset
-from utils import pruning_model_random, pruning_model, remove_prune, check_sparsity
+import evaluation_metrics, utils
 
 sys.path.append(('../'))
 sys.path.append(('../../'))
-import evaluation_metrics
-import utils
-import time
+
+
 
 
 def further_train(model, incompetent_model, test_loader, retain_loader, forget_loader, device, unlearning_time, args):
@@ -23,13 +23,13 @@ def further_train(model, incompetent_model, test_loader, retain_loader, forget_l
 
     if args.random_prune:
         print("random pruning")
-        pruning_model_random(model, args.rate)
+        utils.pruning_model_random(model, args.rate)
     else:
         print("L1 pruning")
-        pruning_model(model, args.rate)
-    remove_prune(model)
+        utils.pruning_model(model, args.rate)
+    utils.remove_prune(model)
 
-    check_sparsity(model)
+    utils.check_sparsity(model)
 
     if (isinstance(model, torch.nn.Module) and "ResNet" in model.__class__.__name__) or (
             isinstance(model, torch.nn.Module) and "vgg" in model.__class__.__name__.lower()):
